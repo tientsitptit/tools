@@ -145,7 +145,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .action-row {
   display: flex;
-  gap: 16px;        /* 👈 tách nút ra */
+  gap: 16px;
+  /* 👈 tách nút ra */
   margin-bottom: 20px;
 }
 
@@ -157,14 +158,23 @@ input[type="number"]::-webkit-inner-spin-button {
   background: #ff9500;
 }
 
+button.review {
+  background-color: #e74c3c;
+  /* đỏ đơn giản */
+  color: #fff;
+  border: none;
+}
+
 .next-btn {
   background: #007aff;
-  font-weight: 700;   /* 👈 viết đậm */
-  font-size: 17px;    /* (tuỳ chọn) hơi to hơn chút */
+  font-weight: 700;
+  /* 👈 viết đậm */
+  font-size: 17px;
+  /* (tuỳ chọn) hơi to hơn chút */
 }
+
 
 /* Ẩn hiện nghĩa */
 .hidden {
   display: none;
 }
-
