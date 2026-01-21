@@ -178,3 +178,23 @@ button.review {
 .hidden {
   display: none;
 }
+
+.review-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.review-item {
+  padding: 6px 10px;
+  background: #ffeaea;
+  color: #d70000;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.review-list.empty {
+  color: #999;
+  font-size: 14px;
+}

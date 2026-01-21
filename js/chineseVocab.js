@@ -9,6 +9,9 @@ const hanzi = document.getElementById("cn-hanzi");
 const pinyin = document.getElementById("cn-pinyin");
 const viet = document.getElementById("cn-vietnamese");
 const meaningBlock = document.getElementById("meaning-block");
+const reviewList = [];
+const reviewDiv = document.getElementById("review-list");
+
 
 // ===== Render =====
 function render() {
@@ -22,6 +25,34 @@ function render() {
   revealed = false;
   meaningBlock.classList.add("hidden");
 }
+
+function renderReviewList() {
+  if (reviewList.length === 0) {
+    reviewDiv.innerHTML = "Chưa có từ nào";
+    reviewDiv.classList.add("empty");
+    return;
+  }
+
+  reviewDiv.classList.remove("empty");
+  reviewDiv.innerHTML = "";
+
+  reviewList.forEach((index, pos) => {
+    const item = document.createElement("div");
+    item.className = "review-item";
+    item.innerText = wordsHSK3[index].hanzi;
+
+    // 👉 click = đã nhớ lại
+    item.onclick = () => {
+      reviewList.splice(pos, 1);   // xóa khỏi list
+      wordsHSK3[index].score++;        // thưởng nhẹ vì nhớ lại
+      renderReviewList();
+    };
+
+    reviewDiv.appendChild(item);
+  });
+}
+
+
 
 // ===== Actions =====
 export function toggleReveal() {
@@ -41,9 +72,15 @@ export function cnRemember() {
 }
 
 export function cnReview() {
+  if (!reviewList.includes(current)) {
+    reviewList.push(current);
+  }
+
   wordsHSK3[current].score = Math.max(0, wordsHSK3[current].score - 1);
+  renderReviewList();
   cnNext();
 }
+
 
 // expose cho HTML onclick
 window.toggleReveal = toggleReveal;
