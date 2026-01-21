@@ -1,4 +1,4 @@
-import { words } from "../data/hsk_words.js";
+import { wordsHSK3 } from "../data/hsk_words.js";
 import { pickWord } from "./weightedRandom.js";
 
 let current = null;
@@ -12,9 +12,9 @@ const meaningBlock = document.getElementById("meaning-block");
 
 // ===== Render =====
 function render() {
-  const w = words[current];
+  const w = wordsHSK3[current];
 
-  hanzi.innerText = w.hanzi;
+  hanzi.innerText = w.hanzi;  
   pinyin.innerText = w.pinyin;
   viet.innerText = w.vietnamese;
 
@@ -30,18 +30,18 @@ export function toggleReveal() {
 }
 
 export function cnNext() {
-  current = pickWord(words, current);
-  words[current].shown++;
+  current = pickWord(wordsHSK3, current);
+  wordsHSK3[current].shown++;
   render();
 }
 
 export function cnRemember() {
-  words[current].score++;
+  wordsHSK3[current].score++;
   cnNext();
 }
 
 export function cnReview() {
-  words[current].score = Math.max(0, words[current].score - 1);
+  wordsHSK3[current].score = Math.max(0, wordsHSK3[current].score - 1);
   cnNext();
 }
 
