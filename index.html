@@ -2,166 +2,56 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work Time & Practice</title>
-
-  <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      margin: 0;
-      background: #f2f2f7;
-    }
-
-    header {
-      background: #007aff;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    nav {
-      display: flex;
-      background: white;
-    }
-
-    nav button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      background: none;
-      font-size: 16px;
-    }
-
-    nav button.active {
-      border-bottom: 3px solid #007aff;
-      font-weight: 600;
-    }
-
-    section {
-      display: none;
-      padding: 20px;
-    }
-
-    section.active {
-      display: block;
-    }
-
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    h3 {
-      margin: 0 0 10px;
-      font-size: 16px;
-    }
-
-    .time-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .time-row input {
-      width: 72px;
-      padding: 10px;
-      font-size: 18px;
-      text-align: center;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-    }
-
-    .time-sep {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    button.main {
-      width: 100%;
-      background: #007aff;
-      color: white;
-      border: none;
-      padding: 14px;
-      font-size: 16px;
-      border-radius: 12px;
-    }
-
-    .result {
-      text-align: center;
-      font-size: 22px;
-      margin-top: 20px;
-      font-weight: 600;
-      color: #007aff;
-    }
-
-    input[type="number"]::-webkit-inner-spin-button {
-      display: none;
-    }
-
-    .full-input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Tools</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-  <header>Work Time & Practice</header>
+  <header>Daily Tools</header>
 
-  <nav>
+  <nav class="nav-top">
     <button id="tab1" class="active" onclick="showTab(1)">⏰ Giờ làm</button>
-    <button id="tab2" onclick="showTab(2)">✖️ Luyện tập</button>
+    <button id="tab2" onclick="showTab(2)">✍️ Luyện tập</button>
   </nav>
 
-  <!-- ===== TAB 1 ===== -->
-  <section id="content1" class="active">
+  <nav class="nav-bottom">
+    <button id="tab3" onclick="showTab(3)">📘 Học tiếng Trung</button>
+  </nav>
 
+  <!-- TAB 1 -->
+  <section id="content1" class="active">
     <div class="card">
       <h3>Thời gian đến</h3>
       <div class="time-row">
-        <input type="number" id="inHour" placeholder="Giờ" min="0" max="23">
-        <span class="time-sep">:</span>
-        <input type="number" id="inMinute" placeholder="Phút" min="0" max="59">
+        <input id="inHour" type="number" placeholder="Giờ">
+        <span>:</span>
+        <input id="inMinute" type="number" placeholder="Phút">
       </div>
     </div>
 
     <div class="card">
-      <h3>Thời gian ra ngoài</h3>
+      <h3>Ra ngoài</h3>
       <div class="time-row">
-        <input type="number" id="outHour" placeholder="Giờ" min="0">
-        <span class="time-sep">:</span>
-        <input type="number" id="outMinute" placeholder="Phút" min="0" max="59">
+        <input id="outHour" type="number" placeholder="Giờ">
+        <span>:</span>
+        <input id="outMinute" type="number" placeholder="Phút">
       </div>
     </div>
 
     <button class="main" onclick="calculate()">Tính giờ về</button>
-
     <div class="result" id="result"></div>
   </section>
 
-  <!-- ===== TAB 2 ===== -->
+  <!-- TAB 2 -->
   <section id="content2">
-
     <div class="card">
-      <h3>Phạm vi phép nhân</h3>
-      <input type="number" id="left" class="full-input" placeholder="">
-      <input type="number" id="right" class="full-input" placeholder="">
-      <button class="main" style="margin-top:12px;" onclick="generate()">Generate</button>
+      <h3>Phạm vi nhân</h3>
+      <input id="left" class="full-input" type="number">
+      <input id="right" class="full-input" type="number">
+      <button class="main" onclick="generate()">Generate</button>
     </div>
 
     <div class="card">
@@ -173,57 +63,47 @@
       <h3>Đáp án</h3>
       <div id="answers"></div>
     </div>
+  </section>
+
+  <!-- TAB 3 -->
+  <section id="content3">
+
+    <!-- Block chữ Trung -->
+    <div class="card cn-main-card">
+      <div id="cn-hanzi" class="cn-hanzi"></div>
+    </div>
+
+    <!-- Block nghĩa -->
+    <div class="card cn-meaning-card hidden" id="meaning-block">
+      <div id="cn-pinyin" class="cn-text"></div>
+      <div id="cn-vietnamese" class="cn-text"></div>
+    </div>
+
+    <!-- Reveal -->
+    <button class="reveal-btn" onclick="toggleReveal()">
+      Hiện nghĩa
+    </button>
+
+    <!-- Action buttons -->
+    <div class="action-row">
+      <button class="main remember" onclick="cnRemember()">Nhớ rồi</button>
+      <button class="main review" onclick="cnReview()">Học lại</button>
+    </div>
+
+    <button class="main next-btn" onclick="cnNext()">Chuyển</button>
 
   </section>
 
-  <script>
-    function showTab(n) {
-      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-      document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
-      document.getElementById("content" + n).classList.add("active");
-      document.getElementById("tab" + n).classList.add("active");
-    }
+  <script src="js/tabs.js"></script>
+  <script src="js/workTime.js"></script>
+  <script src="js/practice.js"></script>
 
-    // ===== Feature 1 =====
-    function calculate() {
-      const inH = parseInt(inHour.value) || 0;
-      const inM = parseInt(inMinute.value) || 0;
-      const outH = parseInt(outHour.value) || 0;
-      const outM = parseInt(outMinute.value) || 0;
-
-      let total =
-        inH * 60 + inM +
-        (9 * 60 + 48) +
-        outH * 60 + outM;
-
-      let h = Math.floor(total / 60) % 24;
-      let m = total % 60;
-
-      result.innerText =
-        `Giờ về: ${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
-    }
-
-    // ===== Feature 2 =====
-    function generate() {
-      const l = parseInt(left.value);
-      const r = parseInt(right.value);
-      if (isNaN(l) || isNaN(r) || l > r) return;
-
-      let q = "", a = "";
-      for (let i = 0; i < 20; i++) {
-        let x = rand(l, r);
-        let y = rand(l, r);
-        q += `<div>${x} × ${y} =</div>`;
-        a += `<div>${x} × ${y} = ${x * y}</div>`;
-      }
-
-      questions.innerHTML = q;
-      answers.innerHTML = a;
-    }
-
-    function rand(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+  <script type="module">
+    import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
+    window.cnNext = cnNext;
+    window.cnRemember = cnRemember;
+    window.cnReview = cnReview;
+    window.toggleReveal = toggleReveal;
   </script>
 
 </body>
