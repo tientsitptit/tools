@@ -43,10 +43,14 @@ function renderReviewList() {
 
     // 👉 click = đã nhớ lại
     item.onclick = () => {
-      reviewList.splice(pos, 1);   // xóa khỏi list
-      wordsHSK3[index].score++;        // thưởng nhẹ vì nhớ lại
+      current = index;
+      reviewList.splice(pos, 1);
+      wordsHSK3[index].score++;
+      wordsHSK3[index].shown++;
+      render();
       renderReviewList();
     };
+
 
     reviewDiv.appendChild(item);
   });

@@ -112,7 +112,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .cn-main-card {
   text-align: center;
-  padding: 36px 16px;
+  padding: 32px 16px;
 }
 
 .cn-hanzi {
@@ -134,8 +134,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .reveal-btn {
   width: 100%;
-  margin: 12px 0 20px;
-  padding: 14px;
+  margin: 4px 0 20px;
+  padding: 16px;
   border-radius: 14px;
   border: none;
   background: #e5e5ea;

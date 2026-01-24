@@ -24,7 +24,7 @@
   <!-- TAB 1 -->
   <section id="content1" class="active">
     <div class="card">
-      <h3>Thời gian đến</h3>
+      <h3>Giờ đến</h3>
       <div class="time-row">
         <input id="inHour" type="number" placeholder="Giờ">
         <span>:</span>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="card">
-      <h3>Ra ngoài</h3>
+      <h3>Thời gian ra ngoài</h3>
       <div class="time-row">
         <input id="outHour" type="number" placeholder="Giờ">
         <span>:</span>
@@ -43,14 +43,25 @@
 
     <button class="main" onclick="calculate()">Tính giờ về</button>
     <div class="result" id="result"></div>
+    <hr style="margin:24px 0; border:none; border-top:1px solid #ddd;">
+
+    <div class="card">
+      <h3>Giờ về</h3>
+      <div class="time-row">
+        <input id="backHour" type="number" placeholder="Giờ">
+        <span>:</span>
+        <input id="backMinute" type="number" placeholder="Phút">
+      </div>
+    </div>
+
+    <button class="main" onclick="calculateArrival()">Tính giờ đến</button>
+    <div class="result" id="arrivalResult"></div>
+
   </section>
 
   <!-- TAB 2 -->
   <section id="content2">
     <div class="card">
-      <h3>Phạm vi nhân</h3>
-      <input id="left" class="full-input" type="number">
-      <input id="right" class="full-input" type="number">
       <button class="main" onclick="generate()">Generate</button>
     </div>
 
@@ -86,8 +97,8 @@
 
     <!-- Action buttons -->
     <div class="action-row">
-      <button class="main remember" onclick="cnRemember()">Nhớ rồi</button>
       <button class="main review" onclick="cnReview()">Học lại</button>
+      <button class="main remember" onclick="cnRemember()">Nhớ rồi</button>
     </div>
 
     <div class="card">

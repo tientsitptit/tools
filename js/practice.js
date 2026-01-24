@@ -3,14 +3,17 @@ function rand(min, max) {
 }
 
 function generate() {
-  const l = +left.value;
-  const r = +right.value;
-  if (l > r) return;
 
   let q = "", a = "";
-  for (let i = 0; i < 20; i++) {
-    const x = rand(l, r);
-    const y = rand(l, r);
+  for (let i = 0; i < 10; i++) {
+    const x = rand(10, 99);
+    const y = rand(10, 99);
+    q += `<div>${x} × ${y} =</div>`;
+    a += `<div>${x} × ${y} = ${x * y}</div>`;
+  }
+  for (let i = 0; i < 10; i++) {
+    const x = rand(100, 999);
+    const y = rand(100, 999);
     q += `<div>${x} × ${y} =</div>`;
     a += `<div>${x} × ${y} = ${x * y}</div>`;
   }
