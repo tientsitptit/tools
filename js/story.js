@@ -36,7 +36,7 @@ async function loadChapter() {
     const data = await res.json();
     summary.innerText = data.summary || data.content ||  "Không có nội dung";
 
-
+    saveReaderState(); 
   } catch (e) {
     summary.innerText = "❌ Lỗi tải truyện";
     console.error(e);
