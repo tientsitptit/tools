@@ -19,6 +19,7 @@ function renderItems() {
     const div = document.createElement("div");
     div.className = "check-item" + (item.done ? " done" : "");
 
+    // checkbox
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = item.done;
@@ -28,11 +29,24 @@ function renderItems() {
       renderItems();
     };
 
+    // tên đồ
     const span = document.createElement("span");
     span.innerText = item.name;
 
+    // nút xóa 🗑️
+    const del = document.createElement("button");
+    del.innerText = "🗑️";
+    del.className = "delete-btn";
+    del.onclick = () => {
+      items.splice(index, 1);   // ❌ xóa đúng item
+      saveItems();
+      renderItems();
+    };
+
     div.appendChild(checkbox);
     div.appendChild(span);
+    div.appendChild(del);
+
     itemList.appendChild(div);
   });
 }
