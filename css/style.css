@@ -238,3 +238,26 @@ button.review {
   color: #999;
   font-size: 14px;
 }
+
+/* ===== TAB 4: Quản lý đồ ===== */
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 16px;
+}
+
+.check-item.done span {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.check-item input {
+  width: 18px;
+  height: 18px;
+}
+.check-item label {
+  flex: 1;
+}
+

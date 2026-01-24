@@ -20,6 +20,7 @@
     <button onclick="openTab(1)">⏰ Giờ làm</button>
     <button onclick="openTab(2)">✍️ Luyện tập</button>
     <button onclick="openTab(3)">📘 Học tiếng Trung</button>
+    <button onclick="openTab(4)">🎒 Quản lý đồ</button>
   </div>
 
 
@@ -112,9 +113,28 @@
 
   </section>
 
+  <!-- TAB 4 -->
+  <section id="content4">
+
+  <div class="card">
+    <h3>Bạn đã mang theo</h3>
+    <input id="itemInput" class="full-input" placeholder="Nhập đồ mang theo" style="margin: 16px 0 20px;">
+    <button class="main" onclick="addItem()">Thêm</button>
+  </div>
+
+  <div class="card">
+    <h3>Danh sách</h3>
+    <div id="itemList"></div>
+  </div>
+
+</section>
+
+
+
   <script src="js/tabs.js"></script>
   <script src="js/workTime.js"></script>
   <script src="js/practice.js"></script>
+  <script src="js/item.js"></script>
 
   <script type="module">
     import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
