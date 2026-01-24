@@ -1,3 +1,6 @@
+const STORAGE_KEY = "reader_state";
+
+
 function getUrl(story, chapter) {
   return `https://truyencom.com/${story}/chuong-${chapter}.html`;
 }
@@ -16,7 +19,7 @@ async function loadChapter() {
   const story = selectedStory;              // ✅ dùng dropdown custom
   const chapter = Number(chapterInput.value);
 
-  summary.innerText = "⏳ Đang tải...";
+  summary.innerText = "⏳ Đang tải nội dung và tóm tắt ...";
 
   try {
     const res = await fetch("https://vtv24-summary.laohacbacho20032003.workers.dev", {
@@ -53,9 +56,48 @@ document.querySelectorAll(".dropdown-item").forEach(item => {
   item.onclick = () => {
     selectedStory = item.dataset.value;
     document.getElementById("selectedText").innerText = item.innerText;
-
+    saveReaderState(); // 🔥 THÊM DÒNG NÀY
     // đóng dropdown sau khi chọn
     document.getElementById("dropdownList").classList.add("hidden");
   };
 });
+
+
+function saveReaderState() {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      story: selectedStory,
+      storyName: document.getElementById("selectedText").innerText,
+      chapter: Number(chapterInput.value) || 1
+    })
+  );
+}
+
+function loadReaderState() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return;
+
+  try {
+    const state = JSON.parse(saved);
+
+    if (state.story) {
+      selectedStory = state.story;
+    }
+
+    if (state.storyName) {
+      document.getElementById("selectedText").innerText = state.storyName;
+    }
+
+    if (state.chapter) {
+      chapterInput.value = state.chapter;
+    }
+  } catch (e) {
+    console.warn("Reader state lỗi");
+  }
+}
+
+loadReaderState();
+
+
 
