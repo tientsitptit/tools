@@ -21,6 +21,7 @@
     <button onclick="openTab(2)">✍️ Luyện tập</button>
     <button onclick="openTab(3)">📘 Học tiếng Trung</button>
     <button onclick="openTab(4)">🎒 Quản lý đồ</button>
+    <button onclick="openTab(5)">📖 Đọc truyện</button>
   </div>
 
 
@@ -116,18 +117,56 @@
   <!-- TAB 4 -->
   <section id="content4">
 
-  <div class="card">
-    <h3>Bạn đã mang theo</h3>
-    <input id="itemInput" class="full-input" placeholder="Nhập đồ mang theo" style="margin: 16px 0 20px;">
-    <button class="main" onclick="addItem()">Thêm</button>
-  </div>
+    <div class="card">
+      <h3>Bạn đã mang theo</h3>
+      <input id="itemInput" class="full-input" placeholder="Nhập đồ mang theo" style="margin: 16px 0 20px;">
+      <button class="main" onclick="addItem()">Thêm</button>
+    </div>
 
-  <div class="card">
-    <h3>Danh sách</h3>
-    <div id="itemList"></div>
-  </div>
+    <div class="card">
+      <h3>Danh sách</h3>
+      <div id="itemList"></div>
+    </div>
 
-</section>
+  </section>
+  <!-- TAB 5 -->
+  <section id="content5">
+    <div class="card">
+      <h3>📖 Đọc truyện</h3>
+
+      <div class="dropdown">
+        <button type="button" class="dropdown-btn" onclick="toggleDropdown()">
+          <span id="selectedText">Mục thần ký</span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div id="dropdownList" class="dropdown-list hidden">
+          <div class="dropdown-item" data-value="muc-than-ky">Mục Thần Ký</div>
+          <div class="dropdown-item" data-value="tien-nghich">Tiên Nghịch</div>
+        </div>
+      </div>
+
+      <input id="chapterInput" type="number" class="full-input" placeholder="Số chương" value="1">
+
+
+      <div class="btn-row chapter-nav">
+        <button class="nav-btn" onclick="prevChapter()">Trước</button>
+
+        <button class="main read-btn" onclick="loadChapter()">
+          Đọc truyện
+        </button>
+
+        <button class="nav-btn" onclick="nextChapter()">Sau</button>
+      </div>
+
+
+      <div class="card">
+        <h4>Tóm tắt</h4>
+        <div id="summary">Chưa có nội dung</div>
+      </div>
+    </div>
+
+  </section>
 
 
 
@@ -135,6 +174,7 @@
   <script src="js/workTime.js"></script>
   <script src="js/practice.js"></script>
   <script src="js/item.js"></script>
+  <script src="js/story.js"></script>
 
   <script type="module">
     import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
