@@ -10,16 +10,18 @@
 
 <body>
 
-  <header>Daily Tools</header>
+  <header class="app-header">
+    <span style="margin-left: 10px;">Daily Tools</span>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  </header>
 
-  <nav class="nav-top">
-    <button id="tab1" class="active" onclick="showTab(1)">⏰ Giờ làm</button>
-    <button id="tab2" onclick="showTab(2)">✍️ Luyện tập</button>
-  </nav>
 
-  <nav class="nav-bottom">
-    <button id="tab3" onclick="showTab(3)">📘 Học tiếng Trung</button>
-  </nav>
+  <div id="menu-panel" class="menu-panel hidden">
+    <button onclick="openTab(1)">⏰ Giờ làm</button>
+    <button onclick="openTab(2)">✍️ Luyện tập</button>
+    <button onclick="openTab(3)">📘 Học tiếng Trung</button>
+  </div>
+
 
   <!-- TAB 1 -->
   <section id="content1" class="active">
