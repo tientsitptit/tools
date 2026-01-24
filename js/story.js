@@ -19,7 +19,7 @@ async function loadChapter() {
   const story = selectedStory;              // ✅ dùng dropdown custom
   const chapter = Number(chapterInput.value);
 
-  summary.innerText = "⏳ Đang tải nội dung và tóm tắt ...";
+  summary.innerText = "⏳ Đang tải nội dung, hãy đợi vài giây ...";
 
   try {
     const res = await fetch("https://vtv24-summary.laohacbacho20032003.workers.dev", {
