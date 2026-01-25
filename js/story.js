@@ -20,6 +20,7 @@ async function loadChapter() {
   const chapter = Number(chapterInput.value);
 
   summary.innerText = "⏳ Đang tải nội dung, hãy đợi vài giây ...";
+  document.getElementById("summary-actions").style.display = "none";
 
   try {
     const res = await fetch("https://vtv24-summary.laohacbacho20032003.workers.dev", {
