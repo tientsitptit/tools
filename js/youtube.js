@@ -60,6 +60,29 @@ document
 //// Helper to get prompt by type ----------------------------------------------------------
 function getPromptByType(type, videoUrl) {
   switch (type) {
+    case "vtv24":
+      return `
+        Hãy tóm tắt nội dung video YouTube của kênh VTV24 sau một cách rõ ràng, trung lập và dễ hiểu trong khoảng 300–400 từ.
+        Link:
+        ${videoUrl}
+        Yêu cầu:
+        - Viết bằng tiếng Việt, văn phong báo chí – thời sự
+        - Giữ tính khách quan, không thêm ý kiến cá nhân
+        - Làm rõ bối cảnh, nguyên nhân và tác động của sự việc
+        - Bỏ qua intro, slogan kênh hoặc phần lặp thông tin không cần thiết
+        Cấu trúc:
+        1. Tổng quan sự kiện hoặc vấn đề được đề cập
+          - Xảy ra ở đâu, khi nào, liên quan đến lĩnh vực nào
+        2. Nội dung chính của bản tin
+          - Các thông tin, số liệu hoặc diễn biến quan trọng
+        3. Nguyên nhân và bối cảnh
+          - Vì sao vấn đề này xảy ra hoặc trở nên đáng chú ý
+        4. Tác động và hệ quả
+          - Ảnh hưởng đến người dân, xã hội, kinh tế hoặc chính sách
+        5. Kết luận
+          - Tóm tắt lại ý nghĩa và giá trị thông tin của bản tin (2–3 câu)
+        `.trim();
+
     case "study":
       return `
         Hãy tóm tắt nội dung video YouTube sau theo hướng học tập – kỹ thuật trong khoảng 300–400 từ.
@@ -128,7 +151,7 @@ function getPromptByType(type, videoUrl) {
         4. Cảm xúc hoặc trải nghiệm mà video mang lại
         5. Đánh giá ngắn gọn: video phù hợp với ai?
         `.trim();
-        
+
     case "quick":
       return `
         Hãy tóm tắt nội dung video YouTube sau theo dạng ghi chú học nhanh.
