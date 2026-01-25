@@ -23,7 +23,7 @@ async function loadChapter() {
   document.getElementById("summary-actions").style.display = "none";
 
   try {
-    const res = await fetch("https://vtv24-summary.laohacbacho20032003.workers.dev", {
+    const res = await fetch("https://vtv24-summary.laohacbacho20032003.workers.dev/story", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
