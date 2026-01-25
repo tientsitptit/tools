@@ -28,13 +28,13 @@ async function loadChapter() {
         body: JSON.stringify({
           story: selectedStory,
           chapter: chapterInput.value,
-          summarize: true
+          summarize: isSummarizeEnabled()
         })
       }
     );
 
     const data = await res.json();
-    if (data.summary && data.summary.length < 80) {
+    if (!data.summary || (data.summary && data.summary.length < 80)) {
       document.getElementById("summary-title").innerText = "Nội dung";
       summary.innerText = data.summary + (data.content || "Không có nội dung");
       document.getElementById("copy-btn").style.display = "inline-block";
@@ -121,5 +121,9 @@ document.getElementById("copy-btn").addEventListener("click", async () => {
   }
 });
 
+function isSummarizeEnabled() {
+  return document.getElementById("summarizeToggle").checked;
+}
+window.isSummarizeEnabled = isSummarizeEnabled;
 
 

@@ -410,4 +410,18 @@ button.review {
   transform: scale(0.92);
 }
 
+.summarize-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.summarize-checkbox input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
 

@@ -37,21 +37,34 @@ export default {
       }
 
       // Regex lấy nội dung
-      const match = html.match(/<div[^>]*id=["']chapter-c["'][^>]*>([\s\S]*?)<\/div>/i) ||
-                    html.match(/<div[^>]*class=["'][^"']*chapter-c[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+      let content = "";
+      const rewriter = new HTMLRewriter()
+        .on(".chapter-c", {
+          text(text) {
+            content += text.text;
+          }
+        })
+        .on(".chapter-c p", {
+          element() {
+            content += "\n\n";
+          }
+        })
+        .on(".chapter-c br", {
+          element() {
+            content += "\n";
+          }
+        });
 
-      if (!match) {
-        return json({ error: "Không tìm thấy nội dung chương", url });
-      }
-
-      let content = match[1]
-        .replace(/<script[\s\S]*?<\/script>/gi, "")
-        .replace(/<style[\s\S]*?<\/style>/gi, "")
-        .replace(/<br\s*\/?>/gi, "\n")
-        .replace(/<\/?[^>]+>/g, "")
-        .replace(/\n{2,}/g, "\n\n")
+      await rewriter.transform(new Response(html)).text();
+      content = content
+        .replace(/\n{3,}/g, "\n\n")
         .trim();
+      content = content.replace(/\(adsbygoogle[\s\S]*?\);\s*/g, "\n");
+      content = content.replace(/Bạn đang đọc truyện tại.*?\n/g, "\n");
+      content = content.replace(/\n{3,}/g, "\n\n").trim();
 
+
+      // Tóm tắt nội dung 
       let summary = "";
 
       // NẾU FRONTEND YÊU CẦU TÓM TẮT
@@ -62,6 +75,8 @@ export default {
         // THÊM TIÊU ĐỀ IN ĐẬM VÀO ĐÂY
         summary = `${chapterTitle}\n\n${aiSummary}`;
       }
+
+      content = `${chapterTitle}\n\n${content}`;
 
       return json({
         success: true,
@@ -81,11 +96,11 @@ export default {
 // Hàm gọi API Gemini đã được fix logic
 async function summarizeWithGemini(text, apiKey) {
   // Thay 'gemini-flash-latest' bằng model cụ thể
-  const MODEL_NAME = "gemini-2.5-flash-lite"; 
+  // const MODEL_NAME = "gemini-2.5-flash-lite"; 
   // const MODEL_NAME = "gemini-2.5-flash-lite-preview-09-2025"; 
   // const MODEL_NAME = "gemini-flash-latest"; 
   // const MODEL_NAME = "gemini-3-flash-preview"; 
-  // const MODEL_NAME = "gemini-robotics-er-1.5-preview"; 
+  const MODEL_NAME = "gemini-robotics-er-1.5-preview"; 
 
   /**
    ** Link check token Requests Per Day
@@ -95,7 +110,7 @@ async function summarizeWithGemini(text, apiKey) {
 
   const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
 
-  const prompt = `Bạn hãy tóm tắt dễ hiểu diễn biến của truyện trong nội dung sau tầm 250 chữ (ít nhất cũng phải được 200 chữ):\n\n${text}. Trả lời chữ bình thường không cần in đậm`;
+  const prompt = `Bạn hãy tóm tắt chi tiết dễ hiểu diễn biến của truyện trong nội dung sau tầm 350 chữ (ít nhất cũng phải được 300 chữ):\n\n${text}. Trả lời chữ bình thường không cần in đậm`;
 
   try {
     const response = await fetch(GEMINI_URL, {
@@ -112,7 +127,8 @@ async function summarizeWithGemini(text, apiKey) {
       return data.candidates[0].content.parts[0].text.trim();
     }
 
-    const responseAPI = "Không tóm tắt được" || `Lỗi API (${response.status}): ${data.error?.message || "Không xác định"}`; 
+    //const responseAPI = `Lỗi API (${response.status}): ${data.error?.message || "Không xác định"}`; 
+    const responseAPI = ""; 
     // Trả về lỗi chi tiết nếu vẫn thất bại
     return responseAPI;
   } catch (e) {
