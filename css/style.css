@@ -3,9 +3,15 @@
 }
 
 .container {
-  width: 70%;
-  max-width: 1100px;     /* tránh quá dài màn hình lớn */
-  margin: 0 auto;       /* căn giữa */
+  width: 100%;
+}
+
+/* Tablet & Desktop */
+@media (min-width: 768px) {
+  .container {
+    width: 70%;
+    margin: 0 auto;
+  }
 }
 
 body {
