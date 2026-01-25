@@ -35,8 +35,10 @@ async function loadChapter() {
 
     const data = await res.json();
     if (data.summary && data.summary.length < 80) {
+      document.getElementById("summary-title").innerText = "Nội dung";
       summary.innerText = data.summary + (data.content || "Không có nội dung");
     } else {
+      document.getElementById("summary-title").innerText = "Tóm tắt";
       summary.innerText = data.summary || "Không tóm tắt được";
     }
 
