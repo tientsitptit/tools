@@ -437,3 +437,16 @@ button.review {
   cursor: pointer;
 }
 
+#summary-actions {
+  display: flex;
+  flex-direction: column;   /* xếp dọc */
+  gap: 10px;                /* khoảng cách 2 nút */
+}
+
+#summary-actions .nav-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+

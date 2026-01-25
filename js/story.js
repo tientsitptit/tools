@@ -35,9 +35,17 @@ async function loadChapter() {
 
     const data = await res.json();
     if (!data.summary || (data.summary && data.summary.length < 80)) {
-      document.getElementById("summary-title").innerText = "Nội dung";
-      summary.innerText = data.content || "Không có nội dung";
-      document.getElementById("copy-btn").style.display = "inline-block";
+      if(isSummarizeEnabled() ){
+        document.getElementById("summary-title").innerText = "Tóm tắt";
+        document.getElementById("summary-actions").style.display = "flex";
+        document.getElementById("copy-btn").style.display = "none";
+        summary.innerText = "";
+      } else {
+        document.getElementById("summary-title").innerText = "Nội dung";
+        document.getElementById("summary-actions").style.display = "none";
+        summary.innerText = data.content || "Không có nội dung";
+        document.getElementById("copy-btn").style.display = "inline-block";
+      }
     } else {
       document.getElementById("summary-title").innerText = "Tóm tắt";
       summary.innerText = data.summary || "Không tóm tắt được";
@@ -126,4 +134,16 @@ function isSummarizeEnabled() {
 }
 window.isSummarizeEnabled = isSummarizeEnabled;
 
+document.getElementById("cf-btn").onclick = () => {
+  window.open(
+    "https://dash.cloudflare.com/6244996be1e72bc80d694e2d773799be/workers/services/edit/vtv24-summary/production",
+    "_blank"
+  );
+};
 
+document.getElementById("gemini-btn").onclick = () => {
+  window.open(
+    "https://aistudio.google.com/usage?timeRange=last-28-days&tab=rate-limit&hl=vi",
+    "_blank"
+  );
+};

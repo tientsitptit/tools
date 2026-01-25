@@ -63,11 +63,11 @@ export default {
       content = content.replace(/Bạn đang đọc truyện tại.*?\n/g, "\n");
       content = content.replace(/\n{3,}/g, "\n\n").trim();
 
-
+      
       // Tóm tắt nội dung 
       let summary = "";
-
-      // NẾU FRONTEND YÊU CẦU TÓM TẮT
+      
+      // NẾU FRONTEND YÊU CẦU TÓM TẮTT
       if (summarize && content.length > 100) {
         // Gọi hàm tóm tắt
         const aiSummary = await summarizeWithGemini(content, env.GEMINI_API_KEY);
@@ -75,7 +75,7 @@ export default {
         // THÊM TIÊU ĐỀ IN ĐẬM VÀO ĐÂY
         summary = `${chapterTitle}\n\n${aiSummary}`;
       }
-
+      
       content = `${chapterTitle}\n\n${content}`;
 
       return json({
@@ -96,11 +96,11 @@ export default {
 // Hàm gọi API Gemini đã được fix logic
 async function summarizeWithGemini(text, apiKey) {
   // Thay 'gemini-flash-latest' bằng model cụ thể
-  // const MODEL_NAME = "gemini-2.5-flash-lite"; 
+  const MODEL_NAME = "gemini-2.5-flash-lite"; 
   // const MODEL_NAME = "gemini-2.5-flash-lite-preview-09-2025"; 
   // const MODEL_NAME = "gemini-flash-latest"; 
   // const MODEL_NAME = "gemini-3-flash-preview"; 
-  const MODEL_NAME = "gemini-robotics-er-1.5-preview"; 
+  // const MODEL_NAME = "gemini-robotics-er-1.5-preview"; 
 
   /**
    ** Link check token Requests Per Day
@@ -110,7 +110,7 @@ async function summarizeWithGemini(text, apiKey) {
 
   const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
 
-  const prompt = `Bạn hãy tóm tắt chi tiết dễ hiểu diễn biến của truyện trong nội dung sau tầm 350 chữ (ít nhất cũng phải được 300 chữ):\n\n${text}. Trả lời chữ bình thường không cần in đậm`;
+  const prompt = `Bạn hãy tóm tắt chi tiết dễ hiểu diễn biến của truyện trong nội dung sau tầm 350 chữ (ít nhất cũng phải được 300 chữ, và tối đa 400 chữ không quá dài):\n\n${text}. Trả lời chữ bình thường không cần in đậm`;
 
   try {
     const response = await fetch(GEMINI_URL, {
