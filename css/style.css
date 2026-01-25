@@ -7,7 +7,7 @@
 }
 
 /* Tablet & Desktop */
-@media (min-width: 768px) {
+@media (min-width: 1080px) {
   .container {
     width: 70%;
     margin: 0 auto;
