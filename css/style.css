@@ -450,3 +450,24 @@ button.review {
   border-radius: 8px;
 }
 
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.video-btn {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.video-btn:hover {
+  background: #f0f0f0;
+}
+
+

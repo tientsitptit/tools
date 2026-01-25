@@ -22,11 +22,12 @@
       <button onclick="openTab(3)">📘 Học tiếng Trung</button>
       <button onclick="openTab(4)">🎒 Quản lý đồ</button>
       <button onclick="openTab(5)">📖 Đọc truyện</button>
+      <button onclick="openTab(6)">🧠 Đọc nhanh Youtube</button>
     </div>
 
 
     <!-- TAB 1 -->
-    <section id="content1" class="active">
+    <section id="content1">
       <div class="card">
         <h3>Giờ đến</h3>
         <div class="time-row">
@@ -182,13 +183,34 @@
 
     </section>
 
+    <!-- TAB 6 -->
+    <section id="content6"  class="active">
+      <div class="card">
+        <h3>Đọc nhanh YouTube</h3>
+        <input id="youtubeChannel" class="full-input" placeholder="Nhập link kênh YouTube" style="margin: 16px 0 8px;" />
+        <button class="main" onclick="loadVideos()" style="margin-top:8px;">
+          Lấy danh sách video
+        </button>
+      </div>
 
+      <div class="card">
+        <h3>Danh sách video</h3>
+        <div id="videoList" class="video-list">
+          <div style="color:#888; font-size:14px;">
+            Chưa có video nào
+          </div>
+        </div>
+      </div>
+    </section>
 
+    
+    <!-- SCRIPTS -->
     <script src="js/tabs.js"></script>
     <script src="js/workTime.js"></script>
     <script src="js/practice.js"></script>
     <script src="js/item.js"></script>
     <script src="js/story.js"></script>
+    <script src="js/youtube.js"></script>
 
     <script type="module">
       import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
