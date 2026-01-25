@@ -28,6 +28,14 @@ export default {
 
       const html = await res.text();
 
+      // 1. Lấy Tiêu đề chương (Regex dựa trên cấu trúc file HTML bạn gửi)
+      const titleMatch = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+      let chapterTitle = "";
+      if (titleMatch) {
+        // Loại bỏ các tag con bên trong như <span>Chương </span> và làm sạch text
+        chapterTitle = titleMatch[1].replace(/<\/?[^>]+>/g, "").trim();
+      }
+
       // Regex lấy nội dung
       const match = html.match(/<div[^>]*id=["']chapter-c["'][^>]*>([\s\S]*?)<\/div>/i) ||
                     html.match(/<div[^>]*class=["'][^"']*chapter-c[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
@@ -46,9 +54,13 @@ export default {
 
       let summary = "";
 
-      // ✅ NẾU FRONTEND YÊU CẦU TÓM TẮT
+      // NẾU FRONTEND YÊU CẦU TÓM TẮT
       if (summarize && content.length > 100) {
-        summary = await summarizeWithGemini(content, env.GEMINI_API_KEY);
+        // Gọi hàm tóm tắt
+        const aiSummary = await summarizeWithGemini(content, env.GEMINI_API_KEY);
+        
+        // THÊM TIÊU ĐỀ IN ĐẬM VÀO ĐÂY
+        summary = `${chapterTitle}\n\n${aiSummary}`;
       }
 
       return json({
@@ -69,11 +81,21 @@ export default {
 // Hàm gọi API Gemini đã được fix logic
 async function summarizeWithGemini(text, apiKey) {
   // Thay 'gemini-flash-latest' bằng model cụ thể
-  //const MODEL_NAME = "gemini-3-flash-preview"; 
-  const MODEL_NAME = "gemini-3-flash-preview"; 
+  const MODEL_NAME = "gemini-2.5-flash-lite"; 
+  // const MODEL_NAME = "gemini-2.5-flash-lite-preview-09-2025"; 
+  // const MODEL_NAME = "gemini-flash-latest"; 
+  // const MODEL_NAME = "gemini-3-flash-preview"; 
+  // const MODEL_NAME = "gemini-robotics-er-1.5-preview"; 
+
+  /**
+   ** Link check token Requests Per Day
+  https://aistudio.google.com/usage?timeRange=last-28-days&tab=rate-limit&hl=vi&_gl=1*1ls85dk*_ga*OTM1NTk3NjUwLjE3NjkwMDA0Njc.*_ga_P1DBVKWT6V*czE3NjkzMDI0MzkkbzIkZzEkdDE3NjkzMDI1MzQkajU5JGwwJGgxMjM0MTM5NTY5&project=gen-lang-client-0104344035
+
+   */
+
   const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
 
-  const prompt = `Bạn hãy tóm tắt dễ hiểu diễn biến của truyện trong nội dung sau tầm 250 chữ:\n\n${text}. Trả lời chữ bình thường không cần in đậm`;
+  const prompt = `Bạn hãy tóm tắt dễ hiểu diễn biến của truyện trong nội dung sau tầm 250 chữ (ít nhất cũng phải được 200 chữ):\n\n${text}. Trả lời chữ bình thường không cần in đậm`;
 
   try {
     const response = await fetch(GEMINI_URL, {
@@ -90,8 +112,9 @@ async function summarizeWithGemini(text, apiKey) {
       return data.candidates[0].content.parts[0].text.trim();
     }
 
+    const responseAPI = "Không tóm tắt được" || `Lỗi API (${response.status}): ${data.error?.message || "Không xác định"}`; 
     // Trả về lỗi chi tiết nếu vẫn thất bại
-    return `Lỗi API (${response.status}): ${data.error?.message || "Không xác định"}`;
+    return responseAPI;
   } catch (e) {
     return "Lỗi kết nối hệ thống.";
   }

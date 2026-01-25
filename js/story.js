@@ -34,7 +34,11 @@ async function loadChapter() {
     );
 
     const data = await res.json();
-    summary.innerText = data.summary || data.content ||  "Không có nội dung";
+    if (data.summary && data.summary.length < 80) {
+      summary.innerText = data.summary + (data.content || "Không có nội dung");
+    } else {
+      summary.innerText = data.summary || "Không tóm tắt được";
+    }
 
     saveReaderState(); 
   } catch (e) {
