@@ -187,8 +187,11 @@
     <section id="content6" class="active">
       <div class="card">
         <h3>Đọc nhanh YouTube</h3>
-        <input id="youtubeChannel" class="full-input" placeholder="Nhập link kênh YouTube"
+        <div class="input-wrapper"> 
+          <input id="youtubeChannel" class="full-input" placeholder="Nhập link kênh YouTube"
           style="margin: 16px 0 8px;" />
+          <span id="clearChannelInput" class="clear-icon">✕</span>
+        </div>
         <button class="main" onclick="loadVideos()" style="margin-top:8px;">
           Lấy danh sách video
         </button>

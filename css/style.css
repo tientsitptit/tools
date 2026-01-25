@@ -158,6 +158,7 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 10px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 /* ===== TAB 3: Chinese ===== */
@@ -468,6 +469,26 @@ button.review {
 
 .video-btn:hover {
   background: #f0f0f0;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #9ca3af;
+  display: none; /* chỉ hiện khi có text */
+}
+
+.clear-icon:hover {
+  color: #ef4444;
 }
 
 

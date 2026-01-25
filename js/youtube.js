@@ -1,19 +1,56 @@
+/***********************
+ * STATE + CACHE KEYS
+ ***********************/
+const CACHE_CHANNEL = "youtubeChannel";
+const CACHE_VIDEOS = "cachedVideos";
+const CACHE_PROMPT = "promptType";
 
+let selectedPromptType = localStorage.getItem(CACHE_PROMPT) || "vtv24";
+
+/***********************
+ * LOAD VIDEOS
+ ***********************/
 async function loadVideos() {
-  const channel = document.getElementById("youtubeChannel").value.trim();
+  const channelInput = document.getElementById("youtubeChannel");
+  const channel = channelInput.value.trim();
   const list = document.getElementById("videoList");
+
+  if (!channel) return;
 
   list.innerHTML = "⏳ Đang tải video...";
 
-  const res = await fetch("https://vtv24-summary.laohacbacho20032003.workers.dev/youtube", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url: channel })
-  });
-  const videos = await res.json();
-  
+  // cache channel
+  localStorage.setItem(CACHE_CHANNEL, channel);
+
+  try {
+    const res = await fetch(
+      "https://vtv24-summary.laohacbacho20032003.workers.dev/youtube",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: channel })
+      }
+    );
+
+    const videos = await res.json();
+
+    // cache videos
+    localStorage.setItem(CACHE_VIDEOS, JSON.stringify(videos));
+
+    renderVideoList(videos);
+  } catch (err) {
+    list.innerHTML = "❌ Lỗi tải video";
+    console.error(err);
+  }
+}
+
+/***********************
+ * RENDER VIDEO LIST
+ ***********************/
+function renderVideoList(videos) {
+  const list = document.getElementById("videoList");
   list.innerHTML = "";
-  
+
   videos.forEach(v => {
     const btn = document.createElement("button");
     btn.className = "video-btn";
@@ -23,6 +60,9 @@ async function loadVideos() {
   });
 }
 
+/***********************
+ * COPY PROMPT
+ ***********************/
 function copyPrompt(videoUrl) {
   const prompt = getPromptByType(selectedPromptType, videoUrl);
 
@@ -31,6 +71,9 @@ function copyPrompt(videoUrl) {
   });
 }
 
+/***********************
+ * PROMPT DROPDOWN
+ ***********************/
 function togglePromptDropdown() {
   document
     .getElementById("promptDropdownList")
@@ -39,13 +82,14 @@ function togglePromptDropdown() {
 
 window.togglePromptDropdown = togglePromptDropdown;
 
-let selectedPromptType = "vtv24";
-
 document
   .querySelectorAll("#promptDropdownList .dropdown-item")
   .forEach(item => {
     item.addEventListener("click", () => {
       selectedPromptType = item.dataset.value;
+
+      // cache prompt type
+      localStorage.setItem(CACHE_PROMPT, selectedPromptType);
 
       document.getElementById("selectedPromptText").innerText =
         item.innerText;
@@ -56,6 +100,49 @@ document
     });
   });
 
+/***********************
+ * RESTORE ON LOAD
+ ***********************/
+window.addEventListener("DOMContentLoaded", () => {
+  // restore channel
+  const savedChannel = localStorage.getItem(CACHE_CHANNEL);
+  if (savedChannel) {
+    document.getElementById("youtubeChannel").value = savedChannel;
+  }
+
+  // restore videos
+  const cachedVideos = localStorage.getItem(CACHE_VIDEOS);
+  if (cachedVideos) {
+    renderVideoList(JSON.parse(cachedVideos));
+  }
+
+  // restore prompt text
+  const savedPromptType = localStorage.getItem(CACHE_PROMPT);
+  if (savedPromptType) {
+    selectedPromptType = savedPromptType;
+
+    const item = document.querySelector(
+      `#promptDropdownList .dropdown-item[data-value="${savedPromptType}"]`
+    );
+
+    if (item) {
+      document.getElementById("selectedPromptText").innerText =
+        item.innerText;
+    }
+  }
+});
+
+/***********************
+ * OPTIONAL: CLEAR CACHE
+ ***********************/
+function clearCache() {
+  localStorage.removeItem(CACHE_CHANNEL);
+  localStorage.removeItem(CACHE_VIDEOS);
+  localStorage.removeItem(CACHE_PROMPT);
+  location.reload();
+}
+
+window.clearCache = clearCache;
 
 //// Helper to get prompt by type ----------------------------------------------------------
 function getPromptByType(type, videoUrl) {
