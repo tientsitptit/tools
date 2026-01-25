@@ -110,6 +110,10 @@ document.getElementById("copy-btn").addEventListener("click", async () => {
   const text = document.getElementById("summary").innerText.trim();
   try {
     await navigator.clipboard.writeText(text);
+    document.getElementById("copy-btn").innerText = "Đã sao chép";
+    setTimeout(() => {
+      document.getElementById("copy-btn").innerText = "Lấy nội dung";
+    }, 1000);
   } catch (err) {
     alert("Trình duyệt không cho phép sao chép");
   }
