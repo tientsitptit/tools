@@ -39,7 +39,7 @@ function togglePromptDropdown() {
 
 window.togglePromptDropdown = togglePromptDropdown;
 
-let selectedPromptType = "study";
+let selectedPromptType = "vtv24";
 
 document
   .querySelectorAll("#promptDropdownList .dropdown-item")
