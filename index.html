@@ -184,13 +184,33 @@
     </section>
 
     <!-- TAB 6 -->
-    <section id="content6"  class="active">
+    <section id="content6" class="active">
       <div class="card">
         <h3>Đọc nhanh YouTube</h3>
-        <input id="youtubeChannel" class="full-input" placeholder="Nhập link kênh YouTube" style="margin: 16px 0 8px;" />
+        <input id="youtubeChannel" class="full-input" placeholder="Nhập link kênh YouTube"
+          style="margin: 16px 0 8px;" />
         <button class="main" onclick="loadVideos()" style="margin-top:8px;">
           Lấy danh sách video
         </button>
+      </div>
+
+      <div class="card">
+        <h3>Chọn loại tóm tắt</h3>
+        <div class="dropdown">
+          <button type="button" class="dropdown-btn prompt-dropdown-btn" onclick="togglePromptDropdown()">
+            <span id="selectedPromptText">📘 Học tập / Kỹ thuật</span>
+          </button>
+
+          <div id="promptDropdownList" class="dropdown-list hidden">
+            <div class="dropdown-item" data-value="study">📘 Học tập các môn học</div>
+            <div class="dropdown-item" data-value="knowledge">📚 Kiến thức khoa học kỹ thuật</div>
+            <div class="dropdown-item" data-value="life">🌍 Nghị luận xã hội</div>
+            <div class="dropdown-item" data-value="entertainment">🎥 Giải trí / Review</div>
+            <div class="dropdown-item" data-value="quick">⚡ Học nhanh</div>
+            <div class="dropdown-item" data-value="teaching">🎓 Giải thích bài giảng chi tiết</div>
+            <div class="dropdown-item" data-value="storytelling">📖 Kể lại câu chuyện</div>
+          </div>
+        </div>
       </div>
 
       <div class="card">
