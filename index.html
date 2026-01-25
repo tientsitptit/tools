@@ -9,191 +9,191 @@
 </head>
 
 <body>
-
-  <header class="app-header">
-    <span style="margin-left: 10px;">Daily Tools</span>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-  </header>
-
-
-  <div id="menu-panel" class="menu-panel hidden">
-    <button onclick="openTab(1)">⏰ Giờ làm</button>
-    <button onclick="openTab(2)">✍️ Luyện tập</button>
-    <button onclick="openTab(3)">📘 Học tiếng Trung</button>
-    <button onclick="openTab(4)">🎒 Quản lý đồ</button>
-    <button onclick="openTab(5)">📖 Đọc truyện</button>
-  </div>
+  <div class="container">
+    <header class="app-header">
+      <span style="margin-left: 10px;">Daily Tools</span>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </header>
 
 
-  <!-- TAB 1 -->
-  <section id="content1" class="active">
-    <div class="card">
-      <h3>Giờ đến</h3>
-      <div class="time-row">
-        <input id="inHour" type="number" placeholder="Giờ">
-        <span>:</span>
-        <input id="inMinute" type="number" placeholder="Phút">
-      </div>
+    <div id="menu-panel" class="menu-panel hidden">
+      <button onclick="openTab(1)">⏰ Giờ làm</button>
+      <button onclick="openTab(2)">✍️ Luyện tập</button>
+      <button onclick="openTab(3)">📘 Học tiếng Trung</button>
+      <button onclick="openTab(4)">🎒 Quản lý đồ</button>
+      <button onclick="openTab(5)">📖 Đọc truyện</button>
     </div>
 
-    <div class="card">
-      <h3>Thời gian ra ngoài</h3>
-      <div class="time-row">
-        <input id="outHour" type="number" placeholder="Giờ">
-        <span>:</span>
-        <input id="outMinute" type="number" placeholder="Phút">
-      </div>
-    </div>
 
-    <button class="main" onclick="calculate()">Tính giờ về</button>
-    <div class="result" id="result"></div>
-    <hr style="margin:24px 0; border:none; border-top:1px solid #ddd;">
-
-    <div class="card">
-      <h3>Giờ về</h3>
-      <div class="time-row">
-        <input id="backHour" type="number" placeholder="Giờ">
-        <span>:</span>
-        <input id="backMinute" type="number" placeholder="Phút">
-      </div>
-    </div>
-
-    <button class="main" onclick="calculateArrival()">Tính giờ đến</button>
-    <div class="result" id="arrivalResult"></div>
-
-  </section>
-
-  <!-- TAB 2 -->
-  <section id="content2">
-    <div class="card">
-      <button class="main" onclick="generate()">Generate</button>
-    </div>
-
-    <div class="card">
-      <h3>Phép tính</h3>
-      <div id="questions"></div>
-    </div>
-
-    <div class="card">
-      <h3>Đáp án</h3>
-      <div id="answers"></div>
-    </div>
-  </section>
-
-  <!-- TAB 3 -->
-  <section id="content3">
-
-    <!-- Block chữ Trung -->
-    <div class="card cn-main-card">
-      <div id="cn-hanzi" class="cn-hanzi"></div>
-    </div>
-
-    <!-- Block nghĩa -->
-    <div class="card cn-meaning-card hidden" id="meaning-block">
-      <div id="cn-pinyin" class="cn-text"></div>
-      <div id="cn-vietnamese" class="cn-text"></div>
-    </div>
-
-    <!-- Reveal -->
-    <button class="reveal-btn" onclick="toggleReveal()">
-      Hiện nghĩa
-    </button>
-
-    <!-- Action buttons -->
-    <div class="action-row">
-      <button class="main review" onclick="cnReview()">Học lại</button>
-      <button class="main remember" onclick="cnRemember()">Nhớ rồi</button>
-    </div>
-
-    <div class="card">
-      <h3>Từ cần học lại</h3>
-      <div id="review-list" class="review-list empty">
-        Chưa có từ nào
-      </div>
-    </div>
-
-  </section>
-
-  <!-- TAB 4 -->
-  <section id="content4">
-
-    <div class="card">
-      <h3>Bạn đã mang theo</h3>
-      <input id="itemInput" class="full-input" placeholder="Nhập đồ mang theo" style="margin: 16px 0 20px;">
-      <button class="main" onclick="addItem()">Thêm</button>
-    </div>
-
-    <div class="card">
-      <h3>Danh sách</h3>
-      <div id="itemList"></div>
-    </div>
-
-  </section>
-  <!-- TAB 5 -->
-  <section id="content5" >
-    <div class="card">
-      <h3>📖 Đọc truyện</h3>
-
-      <div class="dropdown">
-        <button type="button" class="dropdown-btn" onclick="toggleDropdown()">
-          <span id="selectedText">Mục Thần Ký</span>
-        </button>
-
-        <div id="dropdownList" class="dropdown-list hidden">
-          <div class="dropdown-item" data-value="dau-pha-thuong-khung">Đấu Phá Thương Khung</div>
-          <div class="dropdown-item" data-value="muc-than-ky">Mục Thần Ký</div>
-          <div class="dropdown-item" data-value="tien-nghich">Tiên Nghịch</div>
-          <div class="dropdown-item" data-value="kiem-lai-1">Kiếm Lai</div>
-          <div class="dropdown-item" data-value="the-gioi-hoan-my">Thế Giới Hoàn Mỹ</div>
-          <div class="dropdown-item" data-value="quang-am-chi-ngoai">Quang Âm Chi Ngoại</div>
-          <div class="dropdown-item" data-value="pham-nhan-tu-tien">Phàm Nhân Tu Tiên</div>
-          <div class="dropdown-item" data-value="dau-la-dai-luc-ii-tuyet-the-duong-mon">Tuyệt Thế Đường Môn</div>
+    <!-- TAB 1 -->
+    <section id="content1" class="active">
+      <div class="card">
+        <h3>Giờ đến</h3>
+        <div class="time-row">
+          <input id="inHour" type="number" placeholder="Giờ">
+          <span>:</span>
+          <input id="inMinute" type="number" placeholder="Phút">
         </div>
       </div>
 
-      <input id="chapterInput" type="number" class="full-input" placeholder="Số chương" value="1">
-
-
-      <div class="btn-row chapter-nav">
-        <button class="nav-btn" onclick="prevChapter()">Trước</button>
-
-        <button class="main read-btn" onclick="loadChapter()">
-          Đọc truyện
-        </button>
-
-        <button class="nav-btn" onclick="nextChapter()">Sau</button>
+      <div class="card">
+        <h3>Thời gian ra ngoài</h3>
+        <div class="time-row">
+          <input id="outHour" type="number" placeholder="Giờ">
+          <span>:</span>
+          <input id="outMinute" type="number" placeholder="Phút">
+        </div>
       </div>
 
+      <button class="main" onclick="calculate()">Tính giờ về</button>
+      <div class="result" id="result"></div>
+      <hr style="margin:24px 0; border:none; border-top:1px solid #ddd;">
 
       <div class="card">
-        <button id="copy-btn" style="display:none">Lấy nội dung</button>
-        <label class="summarize-checkbox">
-          <input type="checkbox" id="summarizeToggle">
-          <span>Tóm tắt chương</span>
-        </label>
-        <h4 id="summary-title">Nội dung</h4>
-        <div id="summary">Chưa có nội dung</div>
+        <h3>Giờ về</h3>
+        <div class="time-row">
+          <input id="backHour" type="number" placeholder="Giờ">
+          <span>:</span>
+          <input id="backMinute" type="number" placeholder="Phút">
+        </div>
       </div>
-    </div>
 
-  </section>
+      <button class="main" onclick="calculateArrival()">Tính giờ đến</button>
+      <div class="result" id="arrivalResult"></div>
+
+    </section>
+
+    <!-- TAB 2 -->
+    <section id="content2">
+      <div class="card">
+        <button class="main" onclick="generate()">Generate</button>
+      </div>
+
+      <div class="card">
+        <h3>Phép tính</h3>
+        <div id="questions"></div>
+      </div>
+
+      <div class="card">
+        <h3>Đáp án</h3>
+        <div id="answers"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3 -->
+    <section id="content3">
+
+      <!-- Block chữ Trung -->
+      <div class="card cn-main-card">
+        <div id="cn-hanzi" class="cn-hanzi"></div>
+      </div>
+
+      <!-- Block nghĩa -->
+      <div class="card cn-meaning-card hidden" id="meaning-block">
+        <div id="cn-pinyin" class="cn-text"></div>
+        <div id="cn-vietnamese" class="cn-text"></div>
+      </div>
+
+      <!-- Reveal -->
+      <button class="reveal-btn" onclick="toggleReveal()">
+        Hiện nghĩa
+      </button>
+
+      <!-- Action buttons -->
+      <div class="action-row">
+        <button class="main review" onclick="cnReview()">Học lại</button>
+        <button class="main remember" onclick="cnRemember()">Nhớ rồi</button>
+      </div>
+
+      <div class="card">
+        <h3>Từ cần học lại</h3>
+        <div id="review-list" class="review-list empty">
+          Chưa có từ nào
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 4 -->
+    <section id="content4">
+
+      <div class="card">
+        <h3>Bạn đã mang theo</h3>
+        <input id="itemInput" class="full-input" placeholder="Nhập đồ mang theo" style="margin: 16px 0 20px;">
+        <button class="main" onclick="addItem()">Thêm</button>
+      </div>
+
+      <div class="card">
+        <h3>Danh sách</h3>
+        <div id="itemList"></div>
+      </div>
+
+    </section>
+    <!-- TAB 5 -->
+    <section id="content5">
+      <div class="card">
+        <h3>📖 Đọc truyện</h3>
+
+        <div class="dropdown">
+          <button type="button" class="dropdown-btn" onclick="toggleDropdown()">
+            <span id="selectedText">Mục Thần Ký</span>
+          </button>
+
+          <div id="dropdownList" class="dropdown-list hidden">
+            <div class="dropdown-item" data-value="dau-pha-thuong-khung">Đấu Phá Thương Khung</div>
+            <div class="dropdown-item" data-value="muc-than-ky">Mục Thần Ký</div>
+            <div class="dropdown-item" data-value="tien-nghich">Tiên Nghịch</div>
+            <div class="dropdown-item" data-value="kiem-lai-1">Kiếm Lai</div>
+            <div class="dropdown-item" data-value="the-gioi-hoan-my">Thế Giới Hoàn Mỹ</div>
+            <div class="dropdown-item" data-value="quang-am-chi-ngoai">Quang Âm Chi Ngoại</div>
+            <div class="dropdown-item" data-value="pham-nhan-tu-tien">Phàm Nhân Tu Tiên</div>
+            <div class="dropdown-item" data-value="dau-la-dai-luc-ii-tuyet-the-duong-mon">Tuyệt Thế Đường Môn</div>
+          </div>
+        </div>
+
+        <input id="chapterInput" type="number" class="full-input" placeholder="Số chương" value="1">
+
+
+        <div class="btn-row chapter-nav">
+          <button class="nav-btn" onclick="prevChapter()">Trước</button>
+
+          <button class="main read-btn" onclick="loadChapter()">
+            Đọc truyện
+          </button>
+
+          <button class="nav-btn" onclick="nextChapter()">Sau</button>
+        </div>
+
+
+        <div class="card">
+          <button id="copy-btn" style="display:none">Lấy nội dung</button>
+          <label class="summarize-checkbox">
+            <input type="checkbox" id="summarizeToggle">
+            <span>Tóm tắt chương</span>
+          </label>
+          <h4 id="summary-title">Nội dung</h4>
+          <div id="summary">Chưa có nội dung</div>
+        </div>
+      </div>
+
+    </section>
 
 
 
-  <script src="js/tabs.js"></script>
-  <script src="js/workTime.js"></script>
-  <script src="js/practice.js"></script>
-  <script src="js/item.js"></script>
-  <script src="js/story.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/workTime.js"></script>
+    <script src="js/practice.js"></script>
+    <script src="js/item.js"></script>
+    <script src="js/story.js"></script>
 
-  <script type="module">
-    import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
-    window.cnNext = cnNext;
-    window.cnRemember = cnRemember;
-    window.cnReview = cnReview;
-    window.toggleReveal = toggleReveal;
-  </script>
-
+    <script type="module">
+      import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
+      window.cnNext = cnNext;
+      window.cnRemember = cnRemember;
+      window.cnReview = cnReview;
+      window.toggleReveal = toggleReveal;
+    </script>
+  </div>
 </body>
 
 </html>

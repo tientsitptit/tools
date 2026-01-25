@@ -36,7 +36,7 @@ async function loadChapter() {
     const data = await res.json();
     if (!data.summary || (data.summary && data.summary.length < 80)) {
       document.getElementById("summary-title").innerText = "Nội dung";
-      summary.innerText = data.summary + (data.content || "Không có nội dung");
+      summary.innerText = data.content || "Không có nội dung";
       document.getElementById("copy-btn").style.display = "inline-block";
     } else {
       document.getElementById("summary-title").innerText = "Tóm tắt";
