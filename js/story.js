@@ -120,7 +120,7 @@ loadReaderState();
 document.getElementById("copy-btn").addEventListener("click", async () => {
   const text = document.getElementById("summary").innerText.trim();
   try {
-    await navigator.clipboard.writeText("Hãy tóm tắt nội dung chương truyện sau tầm 300 chữ, không được quá dài:\n\n" + text);
+    await navigator.clipboard.writeText("Hãy tóm tắt nội dung chương truyện sau tầm 300 chữ, đủ thông tin quan trọng, không được quá dài (không quá 400 chữ):\n\n" + text);
     document.getElementById("copy-btn").innerText = "Đã sao chép";
     setTimeout(() => {
       document.getElementById("copy-btn").innerText = "Lấy nội dung";
