@@ -125,6 +125,7 @@ document.getElementById("copy-btn").addEventListener("click", async () => {
     setTimeout(() => {
       document.getElementById("copy-btn").innerText = "Lấy nội dung";
     }, 1000);
+    window.open("https://chatgpt.com/", "_blank");
   } catch (err) {
     alert("Trình duyệt không cho phép sao chép");
   }
