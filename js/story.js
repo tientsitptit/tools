@@ -69,7 +69,7 @@ function toggleDropdown() {
 
 window.toggleDropdown = toggleDropdown;
 
-document.querySelectorAll(".dropdown-item").forEach(item => {
+document.querySelectorAll(".story-dropdown-item").forEach(item => {
   item.onclick = () => {
     selectedStory = item.dataset.value;
     document.getElementById("selectedText").innerText = item.innerText;

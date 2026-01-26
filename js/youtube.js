@@ -83,7 +83,7 @@ function togglePromptDropdown() {
 window.togglePromptDropdown = togglePromptDropdown;
 
 document
-  .querySelectorAll("#promptDropdownList .dropdown-item")
+  .querySelectorAll("#promptDropdownList .ytb-dropdown-item")
   .forEach(item => {
     item.addEventListener("click", () => {
       selectedPromptType = item.dataset.value;
@@ -122,7 +122,7 @@ window.addEventListener("DOMContentLoaded", () => {
     selectedPromptType = savedPromptType;
 
     const item = document.querySelector(
-      `#promptDropdownList .dropdown-item[data-value="${savedPromptType}"]`
+      `#promptDropdownList .ytb-dropdown-item[data-value="${savedPromptType}"]`
     );
 
     if (item) {
@@ -143,6 +143,12 @@ function clearCache() {
 }
 
 window.clearCache = clearCache;
+
+document
+  .getElementById("clearChannelInput")
+  .addEventListener("click", () => {
+    document.getElementById("youtubeChannel").value = "";
+  });
 
 //// Helper to get prompt by type ----------------------------------------------------------
 function getPromptByType(type, videoUrl) {
