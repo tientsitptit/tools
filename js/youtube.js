@@ -51,10 +51,10 @@ function renderVideoList(videos) {
   const list = document.getElementById("videoList");
   list.innerHTML = "";
 
-  videos.forEach(v => {
+  videos.forEach((v, index) => {
     const btn = document.createElement("button");
     btn.className = "video-btn";
-    btn.innerText = "🎬 " + v.title;
+    btn.innerText = `${index + 1}. 🎬 ${v.title}`;
     btn.onclick = () => copyPrompt(v.url);
     list.appendChild(btn);
   });
