@@ -45,7 +45,7 @@ async function loadVideos() {
 }
 
 /***********************
- * RENDER VIDEO LIST
+ * RENDER VIDEO LISTT
  ***********************/
 function renderVideoList(videos) {
   const list = document.getElementById("videoList");
