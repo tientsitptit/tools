@@ -19,7 +19,6 @@ async function loadVideos() {
 
   list.innerHTML = "⏳ Đang tải video...";
 
-  // cache channel
   localStorage.setItem(CACHE_CHANNEL, channel);
 
   try {
@@ -34,9 +33,7 @@ async function loadVideos() {
 
     const videos = await res.json();
 
-    // cache videos
     localStorage.setItem(CACHE_VIDEOS, JSON.stringify(videos));
-
     renderVideoList(videos);
   } catch (err) {
     list.innerHTML = "❌ Lỗi tải video";
@@ -45,7 +42,7 @@ async function loadVideos() {
 }
 
 /***********************
- * RENDER VIDEO LISTT
+ * RENDER VIDEO LIST
  ***********************/
 function renderVideoList(videos) {
   const list = document.getElementById("videoList");
@@ -55,16 +52,30 @@ function renderVideoList(videos) {
     const btn = document.createElement("button");
     btn.className = "video-btn";
     btn.innerText = `${index + 1}. 🎬 ${v.title}`;
-    btn.onclick = () => copyPrompt(v.url);
+
+    // 🔥 SỬA Ở ĐÂY: truyền index
+    btn.onclick = () => copyPromptFromStart(index);
+
     list.appendChild(btn);
   });
 }
 
 /***********************
- * COPY PROMPT
+ * COPY PROMPT (1 → N)
  ***********************/
-function copyPrompt(videoUrl) {
-  const prompt = getPromptByType(selectedPromptType, videoUrl);
+function copyPromptFromStart(clickedIndex) {
+  const cachedVideos = localStorage.getItem(CACHE_VIDEOS);
+  if (!cachedVideos) return;
+
+  const videos = JSON.parse(cachedVideos);
+
+  const start = Math.max(0, clickedIndex - 9);
+  const selectedVideos = videos.slice(start, clickedIndex + 1); 
+
+  const prompt = getPromptByType(
+    selectedPromptType,
+    selectedVideos.map((v, i) => `${i + 1}. ${v.url}`).join("\n")
+  );
 
   navigator.clipboard.writeText(prompt).then(() => {
     window.open("https://gemini.google.com/app", "_blank");
@@ -88,7 +99,6 @@ document
     item.addEventListener("click", () => {
       selectedPromptType = item.dataset.value;
 
-      // cache prompt type
       localStorage.setItem(CACHE_PROMPT, selectedPromptType);
 
       document.getElementById("selectedPromptText").innerText =
@@ -104,19 +114,16 @@ document
  * RESTORE ON LOAD
  ***********************/
 window.addEventListener("DOMContentLoaded", () => {
-  // restore channel
   const savedChannel = localStorage.getItem(CACHE_CHANNEL);
   if (savedChannel) {
     document.getElementById("youtubeChannel").value = savedChannel;
   }
 
-  // restore videos
   const cachedVideos = localStorage.getItem(CACHE_VIDEOS);
   if (cachedVideos) {
     renderVideoList(JSON.parse(cachedVideos));
   }
 
-  // restore prompt text
   const savedPromptType = localStorage.getItem(CACHE_PROMPT);
   if (savedPromptType) {
     selectedPromptType = savedPromptType;
@@ -150,28 +157,30 @@ document
     document.getElementById("youtubeChannel").value = "";
   });
 
-//// Helper to get prompt by type ----------------------------------------------------------
-function getPromptByType(type, videoUrl) {
+/***********************
+ * HELPER: GET PROMPT
+ ***********************/
+function getPromptByType(type, videoListText) {
   switch (type) {
     case "longpromt":
       return `
-        Hãy tóm tắt chi tiết dễ hiểu nội dung video YouTube sau.
-        Link:
-        ${videoUrl}
-        `.trim();
+Hãy tóm tắt chi tiết, dễ hiểu nội dung của các video YouTube sau.
+
+${videoListText}
+      `.trim();
 
     case "shortpromt":
       return `
-        Hãy tóm tắt ngắn gọn dễ hiểu nội dung video YouTube sau trong khoảng 100-200 từ.
-        Link:
-        ${videoUrl}
-        `.trim();
+Hãy tóm tắt ngắn gọn, dễ hiểu nội dung các video YouTube sau
+
+${videoListText}
+      `.trim();
 
     default:
       return `
-        Hãy tóm tắt nội dung video YouTube sau trong khoảng 200–300 từ.
-        Link:
-        ${videoUrl}
-        `.trim();
+Hãy tóm tắt ngắn gọn, dễ hiểu nội dung các video YouTube sau
+
+${videoListText}
+      `.trim();
   }
 }
