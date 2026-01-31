@@ -23,6 +23,7 @@
       <button onclick="openTab(4)">🎒 Quản lý đồ</button>
       <button onclick="openTab(5)">📖 Đọc truyện</button>
       <button onclick="openTab(6)">🧠 Đọc nhanh Youtube</button>
+      <button onclick="openTab(7)">✨ Câu nói hay</button>
     </div>
 
 
@@ -185,7 +186,7 @@
     </section>
 
     <!--- TAB 6 --->
-    <section id="content6" class="active">
+    <section id="content6">
       <div class="card">
         <h3>Đọc nhanh YouTube</h3>
         <div class="input-wrapper">
@@ -222,6 +223,22 @@
       </div>
     </section>
 
+    <!-- TAB 7 -->
+    <section id="content7" class="active">
+
+      <div class="card">
+        <h3>Viết gì đó có ý nghĩa ...</h3>
+        <input id="quoteInput" class="full-input" placeholder="Bạn muốn viết điều gì" style="margin: 16px 0 20px;">
+        <button class="main" onclick="addQuote()">Thêm</button>
+      </div>
+
+      <div class="card">
+        <h3>Danh sách</h3>
+        <div id="quoteList"></div>
+      </div>
+
+    </section>
+
 
     <!-- SCRIPTS -->
     <script src="js/tabs.js"></script>
@@ -230,6 +247,7 @@
     <script src="js/item.js"></script>
     <script src="js/story.js"></script>
     <script src="js/youtube.js"></script>
+    <script src="js/quote.js"></script>
 
     <script type="module">
       import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
