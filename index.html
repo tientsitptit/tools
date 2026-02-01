@@ -305,6 +305,7 @@
       <button onclick="alert(localStorage.getItem('youtube_channels'))">
         Debug Storage
       </button>
+      
 
     </section>
 
@@ -327,6 +328,13 @@
       window.cnRemember = cnRemember;
       window.cnReview = cnReview;
       window.toggleReveal = toggleReveal;
+
+      const ta = document.createElement("textarea");
+      ta.style.width = "100%";
+      ta.style.height = "300px";
+      ta.value = localStorage.getItem("youtube_channels");
+      document.body.appendChild(ta);
+
     </script>
   </div>
 </body>
