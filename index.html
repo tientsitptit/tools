@@ -26,6 +26,7 @@
       <button onclick="openTab(7)">✨ Câu nói hay</button>
       <button onclick="openTab(8)">📜 Danh sách việc cần làm</button>
       <button onclick="openTab(9)">📺 Các kênh youtube</button>
+      <button onclick="openTab(10)">💰 Quản lý chi tiêu</button>
 
     </div>
 
@@ -259,7 +260,7 @@
     </section>
 
     <!-- TAB 9 -->
-    <section id="content9" class="active">
+    <section id="content9">
 
       <div class="card">
         <h3>Thêm kênh YouTube</h3>
@@ -278,6 +279,26 @@
 
     </section>
 
+    <!-- TAB 10 -->
+    <section id="content10"  class="active">
+
+      <div class="card">
+        <h3>Thêm chi tiêu</h3>
+
+        <input id="expenseNameInput" class="full-input" placeholder="Chi tiêu gì" style="margin: 16px 0 10px;">
+
+        <input id="expenseAmountInput" class="full-input" placeholder="Số tiền" style="margin-bottom: 20px;">
+
+        <button class="main" onclick="addExpense()">Thêm</button>
+      </div>
+
+      <div class="card">
+        <h3>Danh sách chi tiêu</h3>
+        <div id="expenseList"></div>
+      </div>
+
+    </section>
+
 
     <!-- SCRIPTS -->
     <script src="js/tabs.js"></script>
@@ -289,6 +310,7 @@
     <script src="js/quote.js"></script>
     <script src="js/do.js"></script>
     <script src="js/listYoutube.js"></script>
+    <script src="js/expense.js"></script>
 
     <script type="module">
       import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
