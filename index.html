@@ -24,6 +24,9 @@
       <button onclick="openTab(5)">📖 Đọc truyện</button>
       <button onclick="openTab(6)">🧠 Đọc nhanh Youtube</button>
       <button onclick="openTab(7)">✨ Câu nói hay</button>
+      <button onclick="openTab(8)">📜 Danh sách việc cần làm</button>
+      <button onclick="openTab(9)">📺 Các kênh youtube</button>
+
     </div>
 
 
@@ -224,7 +227,7 @@
     </section>
 
     <!-- TAB 7 -->
-    <section id="content7" class="active">
+    <section id="content7">
 
       <div class="card">
         <h3>Viết gì đó có ý nghĩa ...</h3>
@@ -239,6 +242,42 @@
 
     </section>
 
+    <!-- TAB 8 -->
+    <section id="content8">
+
+      <div class="card">
+        <h3>Bạn cần làm</h3>
+        <input id="doInput" class="full-input" placeholder="Bạn phải làm gì" style="margin: 16px 0 20px;">
+        <button class="main" onclick="addDo()">Thêm</button>
+      </div>
+
+      <div class="card">
+        <h3>Danh sách</h3>
+        <div id="doList"></div>
+      </div>
+
+    </section>
+
+    <!-- TAB 9 -->
+    <section id="content9" class="active">
+
+      <div class="card">
+        <h3>Thêm kênh YouTube</h3>
+
+        <input id="channelNameInput" class="full-input" placeholder="Tên kênh YouTube" style="margin: 16px 0 10px;">
+
+        <input id="channelLinkInput" class="full-input" placeholder="Link kênh YouTube" style="margin-bottom: 20px;">
+
+        <button class="main" onclick="addChannel()">Thêm</button>
+      </div>
+
+      <div class="card">
+        <h3>Danh sách kênh</h3>
+        <div id="channelList"></div>
+      </div>
+
+    </section>
+
 
     <!-- SCRIPTS -->
     <script src="js/tabs.js"></script>
@@ -248,6 +287,8 @@
     <script src="js/story.js"></script>
     <script src="js/youtube.js"></script>
     <script src="js/quote.js"></script>
+    <script src="js/do.js"></script>
+    <script src="js/listYoutube.js"></script>
 
     <script type="module">
       import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";

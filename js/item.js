@@ -1,67 +1,72 @@
-let items = JSON.parse(localStorage.getItem("carryItems") || "[]");
+const CHANNEL_KEY = "youtube_channels";
+let channels = JSON.parse(localStorage.getItem(CHANNEL_KEY)) || [];
 
-const itemInput = document.getElementById("itemInput");
-const itemList = document.getElementById("itemList");
+function renderChannelList() {
+  const list = document.getElementById("channelList");
+  if (!list) return;
 
-function saveItems() {
-  localStorage.setItem("carryItems", JSON.stringify(items));
-}
+  list.innerHTML = "";
 
-function renderItems() {
-  itemList.innerHTML = "";
+  channels.forEach((c, index) => {
+    // container cho mỗi item
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.style.marginBottom = "8px";
 
-  if (items.length === 0) {
-    itemList.innerHTML = "<i>Chưa có đồ nào</i>";
-    return;
-  }
+    // nút chính (copy link)
+    const btn = document.createElement("button");
+    btn.className = "video-btn";
+    btn.innerText = `${index + 1}. 📺 ${c.name}`;
+    btn.style.flex = "1"; // chiếm hết chiều ngang còn lại
 
-  items.forEach((item, index) => {
-    const div = document.createElement("div");
-    div.className = "check-item" + (item.done ? " done" : "");
+    btn.onclick = () => {
+      // copy link
+      navigator.clipboard.writeText(c.link);
 
-    // checkbox
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = item.done;
-    checkbox.onchange = () => {
-      item.done = checkbox.checked;
-      saveItems();
-      renderItems();
+      // 🔥 hiệu ứng click
+      btn.style.transition = "transform 0.08s ease, background 0.15s ease";
+      btn.style.transform = "scale(0.97)";
+
+      const oldBg = btn.style.background;
+      btn.style.background = "#dbeafe"; // xanh nhạt
+
+      setTimeout(() => {
+        btn.style.transform = "scale(1)";
+        btn.style.background = oldBg;
+      }, 150);
     };
 
-    // tên đồ
-    const span = document.createElement("span");
-    span.innerText = item.name;
-
-    // nút xóa 🗑️
+    // nút xoá 🗑️
     const del = document.createElement("button");
     del.innerText = "🗑️";
     del.className = "delete-btn";
-    del.onclick = () => {
-      items.splice(index, 1);   // ❌ xóa đúng item
-      saveItems();
-      renderItems();
+
+    del.onclick = (e) => {
+      e.stopPropagation(); // 🔥 không trigger click copy
+      channels.splice(index, 1);
+      localStorage.setItem(CHANNEL_KEY, JSON.stringify(channels));
+      renderChannelList();
     };
 
-    div.appendChild(checkbox);
-    div.appendChild(span);
-    div.appendChild(del);
-
-    itemList.appendChild(div);
+    row.appendChild(btn);
+    row.appendChild(del);
+    list.appendChild(row);
   });
 }
 
-function addItem() {
-  const name = itemInput.value.trim();
-  if (!name) return;
+function addChannel() {
+  const name = document.getElementById("channelNameInput").value.trim();
+  const link = document.getElementById("channelLinkInput").value.trim();
 
-  items.push({ name, done: false });
-  itemInput.value = "";
-  saveItems();
-  renderItems();
+  channels.push({ name, link });
+  localStorage.setItem(CHANNEL_KEY, JSON.stringify(channels));
+
+  document.getElementById("channelNameInput").value = "";
+  document.getElementById("channelLinkInput").value = "";
+
+  renderChannelList();
 }
 
-window.addItem = addItem;
-
-// init
-renderItems();
+document.addEventListener("DOMContentLoaded", renderChannelList);
