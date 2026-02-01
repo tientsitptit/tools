@@ -122,18 +122,11 @@
 
     <!-- TAB 4 -->
     <section id="content4">
-
       <div class="card">
-        <h3>Bạn đã mang theo</h3>
-        <input id="itemInput" class="full-input" placeholder="Nhập đồ mang theo" style="margin: 16px 0 20px;">
-        <button class="main" onclick="addItem()">Thêm</button>
+        <h3>Hoạt động</h3>
+        <input id="actionInput" class="full-input" placeholder="Bạn muốn làm gì ..." style="margin: 16px 0 20px;">
+        <button class="main" onclick="addBlock()">Thêm hoạt động mới</button>
       </div>
-
-      <div class="card">
-        <h3>Danh sách</h3>
-        <div id="itemList"></div>
-      </div>
-
     </section>
     <!-- TAB 5 -->
     <section id="content5">
@@ -280,7 +273,7 @@
     </section>
 
     <!-- TAB 10 -->
-    <section id="content10"  class="active">
+    <section id="content10" class="active">
 
       <div class="card">
         <h3>Thêm chi tiêu</h3>
@@ -288,15 +281,15 @@
         <input id="expenseNameInput" class="full-input" placeholder="Chi tiêu gì" style="margin: 16px 0 10px;">
 
         <input id="expenseAmountInput" class="full-input" placeholder="Số tiền" style="margin-bottom: 20px;">
-        
+
         <button class="main" onclick="addExpense()">Thêm</button>
       </div>
-      
+
       <div class="card">
         <h3>Tổng chi tiêu tháng</h3>
         <div id="expenseTotal"></div>
       </div>
-      
+
       <div class="card">
         <h3>Danh sách chi tiêu</h3>
         <div id="expenseList"></div>
