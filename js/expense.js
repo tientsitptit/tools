@@ -15,6 +15,7 @@ function renderExpenseList() {
   const list = document.getElementById("expenseList");
   if (!list) return;
 
+  calculateCurrentMonthExpense();
   list.innerHTML = "";
 
   expenses.forEach((item, index) => {
@@ -32,7 +33,7 @@ function renderExpenseList() {
 
     const money = Number(item.amount).toLocaleString("vi-VN");
     const time = item.createdAt ? formatTime(item.createdAt) : "";
-    btn.innerText = `${index + 1}. 💸 ${item.name} - ${money}.000 đ - Ngày ${time}`;
+    btn.innerText = `${index + 1}.  ${item.name} - ${money}.000 đ - Ngày ${time}`;
 
     // nút xoá
     const del = document.createElement("button");
@@ -84,6 +85,36 @@ function formatTime(ts) {
     year: "numeric"
   });
 }
+
+function calculateCurrentMonthExpense() {
+  const result = document.getElementById("expenseTotal");
+  if (!result) return;
+
+  const now = new Date();
+  const currentMonth = now.getMonth();      // 0-11
+  const currentYear = now.getFullYear();
+
+  let total = 0;
+
+  expenses.forEach(item => {
+    if (!item.createdAt) return;
+
+    const d = new Date(item.createdAt);
+    if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+      total += Number(item.amount) || 0;
+    }
+  });
+
+  result.innerHTML = `
+    <div style="margin-top:12px;  font-weight:600;">
+      💰 
+      <span style="color:#dc2626;">
+        ${total.toLocaleString("vi-VN")}.000 đ
+      </span>
+    </div>
+  `;
+}
+
 
 /***********************
  * INIT
