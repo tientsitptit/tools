@@ -33,7 +33,7 @@ function renderExpenseList() {
 
     const money = Number(item.amount).toLocaleString("vi-VN");
     const time = item.createdAt ? formatTime(item.createdAt) : "";
-    btn.innerText = `${index + 1}.  ${item.name} - ${money}.000 đ - Ngày ${time}`;
+    btn.innerText = `${item.name} - ${money}.000 đ - Ngày ${time}`;
 
     // nút xoá
     const del = document.createElement("button");
