@@ -1,4 +1,4 @@
-const STORAGE_KEY = "reader_state";
+const STORY_STORAGE_KEY = "reader_state";
 
 
 function getUrl(story, chapter) {
@@ -82,7 +82,7 @@ document.querySelectorAll(".story-dropdown-item").forEach(item => {
 
 function saveReaderState() {
   localStorage.setItem(
-    STORAGE_KEY,
+    STORY_STORAGE_KEY,
     JSON.stringify({
       story: selectedStory,
       storyName: document.getElementById("selectedText").innerText,
@@ -92,7 +92,7 @@ function saveReaderState() {
 }
 
 function loadReaderState() {
-  const saved = localStorage.getItem(STORAGE_KEY);
+  const saved = localStorage.getItem(STORY_STORAGE_KEY);
   if (!saved) return;
 
   try {

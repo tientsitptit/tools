@@ -88,22 +88,21 @@
 
     <!-- TAB 3 -->
     <section id="content3">
+      <button class="main start" onclick="startList()">▶ Bắt đầu</button>
+
+      <!-- Counter -->
+      <div class="counter" id="counter">0 / 0</div>
 
       <!-- Block chữ Trung -->
       <div class="card cn-main-card">
         <div id="cn-hanzi" class="cn-hanzi"></div>
       </div>
 
-      <!-- Block nghĩa -->
+      <!-- Nghĩa -->
       <div class="card cn-meaning-card hidden" id="meaning-block">
         <div id="cn-pinyin" class="cn-text"></div>
         <div id="cn-vietnamese" class="cn-text"></div>
       </div>
-
-      <!-- Reveal -->
-      <button class="reveal-btn" onclick="toggleReveal()">
-        Hiện nghĩa
-      </button>
 
       <!-- Action buttons -->
       <div class="action-row">
@@ -309,14 +308,9 @@
     <script src="js/do.js"></script>
     <script src="js/listYoutube.js"></script>
     <script src="js/expense.js"></script>
+    <script type="module" src="./js/chineseVocab.js"></script>
 
-    <script type="module">
-      import { cnNext, cnRemember, cnReview, toggleReveal } from "./js/chineseVocab.js";
-      window.cnNext = cnNext;
-      window.cnRemember = cnRemember;
-      window.cnReview = cnReview;
-      window.toggleReveal = toggleReveal;
-    </script>
+  
   </div>
 </body>
 
