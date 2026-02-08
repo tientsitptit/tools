@@ -69,7 +69,8 @@ function copyPromptFromStart(clickedIndex) {
 
   const videos = JSON.parse(cachedVideos);
 
-  const start = Math.max(0, clickedIndex - 9);
+  const limit = parseInt(document.getElementById("videoLimit").value, 10) || 1;
+  const start = Math.max(0, clickedIndex - (limit - 1));
   const selectedVideos = videos.slice(start, clickedIndex + 1).reverse(); 
 
   const prompt = getPromptByType(
