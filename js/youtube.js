@@ -69,7 +69,7 @@ function copyPromptFromStart(clickedIndex) {
 
   const videos = JSON.parse(cachedVideos);
 
-  const start = Math.max(0, clickedIndex - 4);
+  const start = Math.max(0, clickedIndex - 9);
   const selectedVideos = videos.slice(start, clickedIndex + 1).reverse(); 
 
   const prompt = getPromptByType(
@@ -164,7 +164,7 @@ function getPromptByType(type, videoListText) {
   switch (type) {
     case "longpromt":
       return `
-Hãy tóm tắt chi tiết, dễ hiểu nội dung của các video YouTube sau.
+Hãy tóm tắt chi tiết, đầy đủ thông tin, dễ hiểu nội dung của các video YouTube sau.
 
 ${videoListText}
       `.trim();
