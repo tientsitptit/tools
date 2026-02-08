@@ -82,7 +82,7 @@ function copyPromptFromStart(clickedIndex) {
   });
 }
 
-/***********************
+/************************
  * PROMPT DROPDOWN
  ***********************/
 function togglePromptDropdown() {
