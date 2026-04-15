@@ -56,6 +56,15 @@ function renderChannelList() {
   });
 }
 
+function saveChannels() {
+    const input = document.getElementById("jsonInput").value;
+    // parse để check JSON hợp lệ
+    const data = JSON.parse(input);
+
+    // lưu vào localStorage
+    localStorage.setItem("youtube_channels", JSON.stringify(data));
+}
+
 function addChannel() {
   const name = document.getElementById("channelNameInput").value.trim();
   const link = document.getElementById("channelLinkInput").value.trim();
